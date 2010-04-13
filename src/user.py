@@ -1,7 +1,7 @@
 '''
 Created on 5/02/2010
 
-@author: henry
+@author: henry@henryjenkins.name
 '''
 
 import datetime
@@ -73,7 +73,10 @@ class user(object):
     def addUpData(self, date=None, data=0, pkts=0, peak='on'): #TODO store packets
         date = self.__checkDate(date)
         if date not in self.dataUp:# Check if data for date already
-            self.dataUp[date] = {'on': {'data': 0, 'pkts': 0}, 'off': {'data': 0, 'pkts': 0}}
+            self.dataUp[date] = {
+                                 'on': {'data': 0, 'pkts': 0}, 
+                                 'off': {'data': 0, 'pkts': 0}
+                                 }
         
         self.dataUp[date][peak]['data'] += int(data)
         self.dataUp[date][peak]['pkts'] += int(pkts)
@@ -81,7 +84,10 @@ class user(object):
     def addDownData(self, date=None, data=0, pkts=0, peak='on'): #TODO store packets
         date = self.__checkDate(date)
         if date not in self.dataDown:# Check if data for date already
-            self.dataDown[date] = {'on': {'data': 0, 'pkts': 0}, 'off': {'data': 0, 'pkts': 0}}
+            self.dataDown[date] = {
+                                   'on': {'data': 0, 'pkts': 0}, 
+                                   'off': {'data': 0, 'pkts': 0}
+                                   }
         
         self.dataDown[date][peak]['data'] += int(data)
         self.dataDown[date][peak]['pkts'] += int(pkts)

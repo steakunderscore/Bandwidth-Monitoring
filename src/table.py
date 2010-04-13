@@ -1,7 +1,7 @@
 '''
 Created on 4/02/2010
 
-@author: henry
+@author: henry@henryjenkins.name
 '''
 
 import os
@@ -27,7 +27,7 @@ class table(object):
         table.__cleanTableRows(self)
             
     def __updatefile(self,host="bawls.grr", table="filter",chain="act"):
-        command = "ssh root@" + host + " iptables -v -x -Z -n -L " + chain + " -t " + table                                                       
+        command = "ssh root@" + host + " iptables -v -x -n -L " + chain + " -t " + table                                                       
         process = subprocess.Popen(command,stdout=subprocess.PIPE,shell=True)
         os.waitpid(process.pid, 0)
         myFile = tempfile.mktemp()
