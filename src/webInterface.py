@@ -1,10 +1,8 @@
 '''
 Created on 11/02/2010
 
-@author: henry
+@author: henry@henryjenkins.name
 '''
-import tempfile
-import io
 
 class webInterface(object):
     '''
@@ -34,8 +32,10 @@ class webInterface(object):
 
         self.writeFile.write('<tr>')
         self.writeFile.write('<td>IP address</td>')
-        self.writeFile.write('<td>Total Upload data</td>')
-        self.writeFile.write('<td>Total Downlaod data</td>')
+        self.writeFile.write('<td>On-peak Upload data</td>')
+        self.writeFile.write('<td>Off-peak Upload data</td>')
+        self.writeFile.write('<td>On-peak Downlaod data</td>')
+        self.writeFile.write('<td>Off-peak Downlaod data</td>')
         self.writeFile.write('<td>Total data</td>')
         self.writeFile.write('</tr>')
         
@@ -44,8 +44,10 @@ class webInterface(object):
         for user in usersList:
             self.writeFile.write('<tr>')
             self.writeFile.write('<td>' + user + '</td>')
-            self.writeFile.write('<td>' + self.humanizeNumber(users[user].getUpData()) + '</td>')
-            self.writeFile.write('<td>' + self.humanizeNumber(users[user].getDownData()) + '</td>')
+            self.writeFile.write('<td>' + self.humanizeNumber(users[user].getUpData(date=None, peak='on')) + '</td>')
+            self.writeFile.write('<td>' + self.humanizeNumber(users[user].getUpData(date=None, peak='off')) + '</td>')
+            self.writeFile.write('<td>' + self.humanizeNumber(users[user].getDownData(date=None, peak='on')) + '</td>')
+            self.writeFile.write('<td>' + self.humanizeNumber(users[user].getDownData(date=None, peak='off')) + '</td>')
             self.writeFile.write('<td>' + self.humanizeNumber(users[user].getData()) + '</td>')
             self.writeFile.write('</tr>')
             

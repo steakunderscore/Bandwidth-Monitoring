@@ -12,6 +12,9 @@ import datetime
 
 
 if __name__ == '__main__':
+    STARTTIME = 01 # Define the off-peak start time
+    ENDTIME = 07 # Define the off-peak end time
+    
     myTable = table.table()
     users = {}
 
@@ -27,9 +30,9 @@ if __name__ == '__main__':
 
             curTime = datetime.time(time.localtime().tm_hour,time.localtime().tm_min)
             
-            if curTime > datetime.time(1,0):
+            if curTime > datetime.time(STARTTIME,0):
                 print( "It's after 1am")
-                if curTime < datetime.time(7,0):
+                if curTime < datetime.time(ENDTIME,0):
                     print("And it's before 7am")
             #        peak = 'off'
                 else:
