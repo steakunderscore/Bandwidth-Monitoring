@@ -15,18 +15,17 @@ class table(object):
     tableRawLines = None
     tableLines = None
 
-    def __init__(self, textFile=None):
+    def __init__(self):
         self.tableRawLines = []
         self.tableLines = []
         
-    def updateTable(self, textFile=None):
-        if textFile == None:
-            textFile = table.__updatefile(self)
+    def updateTable(self, host):
+        textFile = table.__updatefile(self, host)
         table.__parsTable(self, textFile)
         table.__cleanTableLines(self)
         table.__cleanTableRows(self)
             
-    def __updatefile(self,host="bawls.grr", table="filter",chain="act"):
+    def __updatefile(self, host, table="filter", chain="act"):
         command = "ssh root@" + host + " iptables -v -x -Z -n -L " + chain + " -t " + table                                                       
         process = subprocess.Popen(command,stdout=subprocess.PIPE,shell=True)
         os.waitpid(process.pid, 0)
