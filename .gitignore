@@ -1,0 +1,7 @@
+*.pyc
+*.so
+*~
+*.html
+# Ignore Eclipse files too
+.project
+.pydevproject
