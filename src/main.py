@@ -20,23 +20,18 @@ if __name__ == '__main__':
 
     # Final program loop!
     while True:
-        print("Loop is running")
+        print("Currently updating data from router")
         myTable.updateTable()
+
+        # Check if we are currnetly on or off peak
+        peak = 'on'
+        curTime = datetime.time(time.localtime().tm_hour,time.localtime().tm_min)
+        if curTime > datetime.time(STARTTIME,0):
+            if curTime < datetime.time(ENDTIME,0):
+                peak = 'off'
 
         while myTable.hasLines():
             line = myTable.getLine()
-            
-            peak = 'on'
-
-            curTime = datetime.time(time.localtime().tm_hour,time.localtime().tm_min)
-            
-            if curTime > datetime.time(STARTTIME,0):
-                print( "It's after 1am")
-                if curTime < datetime.time(ENDTIME,0):
-                    print("And it's before 7am")
-            #        peak = 'off'
-                else:
-                    print("But it's after 7am too.")
             
             if line["address"] not in users:
                 users[line["address"]] = user.user()
@@ -48,7 +43,6 @@ if __name__ == '__main__':
             else:
                 print(line["bytes"] + " bytes lost from records")
     
-        print("Loop has run")
         interface = webInterface.webInterface()
         interface.outputIndex('index.html', users)
         
