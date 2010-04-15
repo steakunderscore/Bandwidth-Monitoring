@@ -36,7 +36,7 @@ class user(object):
             return self.dataUp[date]['data']
         else:
             return 0
-           
+
     def __getTotalData(self, peak='on'):
         totalData = self.__getTotalUpData(peak)
         totalData = totalData + self.__getTotalDownData(peak)
@@ -70,6 +70,12 @@ class user(object):
             dataTotal += data[peak]['data']
         return dataTotal
      
+    def addData(self, date, data, pkts, peak, direction):
+        if direction == 'up':
+            self.addUpData(date, data, pkts, peak)
+        elif direction == 'down':
+            self.addDownData(date, data, pkts, peak)
+
     def addUpData(self, date=None, data=0, pkts=0, peak='on'): #TODO store packets
         date = self.__checkDate(date)
         if date not in self.dataUp:# Check if data for date already

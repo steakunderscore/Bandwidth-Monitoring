@@ -37,13 +37,8 @@ if __name__ == '__main__':
             if line["address"] not in users:
                 users[line["address"]] = user.user()
             myUser = users[line["address"]]
-            if line["upOrDown"] == "up":
-                myUser.addUpData(data = line["bytes"], peak = peak)
-            elif line["upOrDown"] == "down":
-                myUser.addDownData(data = line["bytes"], peak = peak)
-            else:
-                print(line["bytes"] + " bytes lost from records")
-    
+            myUser.addData(data = line["bytes"], peak = peak, direction = line["upOrDown"])
+
         interface = webInterface.webInterface()
         interface.outputIndex('index.html', users)
         
