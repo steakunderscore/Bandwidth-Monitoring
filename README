@@ -1,4 +1,4 @@
-Bandwith-Monitoring
+Bandwidth-Monitoring
 ===================
 
 This small python program monitors and logs iptables via ssh.
@@ -7,9 +7,17 @@ This small python program monitors and logs iptables via ssh.
 How to use
 ----------
 
-Setup iptables with act table and correct return on you router.
-Then run this to log the data passing threw the act table.
+Set up iptables with 'act' table and correct return table on you router.
+Then run main.py to log the data passing through the act table.
 
+TODO
+----
+
+ - Allow arguments
+ - Read config file
+ - Write data to database
+ - Read data from database
+ - Added some javascript to allow sorting of the data table
 
 Author
 ------
