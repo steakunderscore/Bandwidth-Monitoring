@@ -12,8 +12,9 @@ import sys
 import getopt
 
 def main(argv):
-    startTime = None; endTime = None
-
+    startTime = None; endTime = None; outPut = None
+    global _debug
+    _debug = None;
     #parse the arguments
     try:
         opts, args = getopt.getopt(argv[1:],
@@ -25,22 +26,18 @@ def main(argv):
         sys.exit(2)
     #Deal with the arguments
     for opt, arg in opts:
-        if opt in ("-h", "--help"):
+        if   opt in ("-h",   "--help"):
             usage(argv)
             sys.exit()
-        elif opt == ('-d', "--debug"):
-            global _debug
+        elif opt in ('-d',  "--debug"):
             _debug = 1
-        elif opt in ("-s", "--start"):
+        elif opt in ("-s",  "--start"):
             startTime = arg
-        elif opt in ("-e", "--end"):
+        elif opt in ("-e",    "--end"):
             endTime = arg
         elif opt in ("-o", "--output"):
             outPut = arg
         elif opt in ("-c", "--config"):
-            if arg == None:
-                usage(argv)
-                sys.exit(2)
             configFile = arg
             print("Sorry, config files are not supported yet!")
         elif opt in ("-V", "--version"):
@@ -55,17 +52,19 @@ def main(argv):
 
     if startTime == None: # Define the off-peak start time
         startTime = 0
-    if endTime == None: # Define the off-peak start time
-        endTime = 0 # Define the off-peak end time
+    if endTime   == None: # Define the off-peak end time
+        endTime   = 0
+    if outPut    == None:
+        outPut    = "../www/index.html"
     
     myTable = table.table()
     users = {}
-
+    interface = webInterface.webInterface()
     # Final program loop!
     while True:
         print("Currently updating data from router " + host)
         myTable.updateTable(host)
-
+        if _debug == 1 : print("DEBUG: updated table")
         # Check if we are currently on or off peak
         peak = 'on'
         curTime = datetime.time(time.localtime().tm_hour,time.localtime().tm_min)
@@ -85,14 +84,20 @@ def main(argv):
                 myUser.addDownData(data = line["bytes"], peak = peak)
             else:
                 print(line["bytes"] + " bytes lost from records")
-    
-        interface = webInterface.webInterface()
-        interface.outputIndex('index.html', users)
+
+        interface.outputIndex(outPut, users)
         
         time.sleep(time.localtime(time.time())[3])
 
 def version():
-    print("v0.02")
+    print("Bandwidth-Monitoring v0.02")
+    print("Copyright (C) 2010 Henry Jenkins")
+    print("License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.")
+    print("This is free software: you are free to change and redistribute it.")
+    print("There is NO WARRANTY, to the extent permitted by law.")
+    print
+    print("Written by Henry Jenkins")
+
 
 def usage(argv):
     print(argv[0] + " [options] <host>")
@@ -106,7 +111,7 @@ def usage(argv):
     print("  -c:   --config=File              where File is a config file")
     print("  -s:   --start=Time               off peak start time in format HHMM")
     print("  -e:   --end=Time                 off peak end time in format HHMM")
-    print("Report touch bugs to henry@henryjenkins.name")
+    print("Report bugs to henry@henryjenkins.name")
 
 if __name__ == "__main__":
     main(sys.argv)
