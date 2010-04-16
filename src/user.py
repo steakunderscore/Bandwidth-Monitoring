@@ -70,7 +70,7 @@ class user(object):
             dataTotal += data[peak]['data']
         return dataTotal
      
-    def addData(self, date, data, pkts, peak, direction):
+    def addData(self, date=None, data=0, pkts=0, peak='on', direction='up'):
         if direction == 'up':
             self.addUpData(date, data, pkts, peak)
         elif direction == 'down':
