@@ -13,7 +13,6 @@ Then run main.py to log the data passing through the act table.
 TODO
 ----
 
- - Allow arguments
  - Read config file
  - Write data to database
  - Read data from database
