@@ -13,8 +13,8 @@ class webInterface(object):
     def __init__(self):
         pass
         
-    def openFile(self, fileName = "index.html"):
-        self.writeFile = open('../www/' + fileName, 'w')
+    def __openFile(self, fileName):
+        self.writeFile = open(fileName, 'w')
         
     def closeFile(self):
         self.writeFile.close()
@@ -71,8 +71,8 @@ class webInterface(object):
             number = str(number) + ' Bytes'
         return number
         
-    def outputIndex(self,file = 'index.html',users = None):
-        self.openFile(file)
+    def outputIndex(self,file,users = None):
+        self.__openFile(file)
         self.writeHeader()
         self.writeBody(users)
         self.writeFooter()
