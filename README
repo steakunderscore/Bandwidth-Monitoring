@@ -13,12 +13,14 @@ Then run main.py to log the data passing through the act table.
 TODO
 ----
 
- - Read config file
- - Write data to database
- - Read data from database
+ - Record the number of packets                                      - v0.02
+ - Read config file	                                                 - v0.03
+ - Write data to database                                            - v0.04
+ - Read data from database                                           - v0.05
  - Added some javascript to allow sorting of the data table
- - Change to better web system
- - Allow exploring of hosts via web interface
+ - Change to better web system                                       - v0.06
+ - Allow exploring of hosts via web interface                        - v0.07
+ - Test all code                                                     - v0.10
 
 Author
 ------
