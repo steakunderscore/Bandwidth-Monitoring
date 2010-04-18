@@ -13,7 +13,7 @@ import sys
 import getopt
 
 def main(argv):
-    startTime = None; endTime = None; outPut = None
+    startTime = None; endTime = None; outPut = None; configFile = None
     global _debug
     _debug = None;
     #parse the arguments
@@ -23,36 +23,39 @@ def main(argv):
                                   ["config=", "debug","end=", "help", "start=",
                                    "output", "version"])
     except getopt.GetoptError:
-        usage(argv)
+        usage()
         sys.exit(2)
     #Deal with the arguments
     for opt, arg in opts:
         if   opt in ("-h",   "--help"):
-            usage(argv)
+            usage()
             sys.exit()
         elif opt in ('-d',  "--debug"):
             _debug = 1
         elif opt in ("-s",  "--start"):
-            startTime = arg
+            startTime = makeInt(arg)
         elif opt in ("-e",    "--end"):
-            endTime = arg
+            endTime = makeInt(arg)
         elif opt in ("-o", "--output"):
             outPut = arg
         elif opt in ("-c", "--config"):
             configFile = arg
             print("Sorry, config files are not supported yet!")
+            sys.exit(2)
         elif opt in ("-V", "--version"):
             version()
             sys.exit()
 
-    if len(args) != 1:
-        usage(argv)
+    if configFile != None: # Deal with config file.
+        pass
+    elif len(args) != 1: # the host must be defined in the args
+        usage()
         sys.exit(2)
     else:
         host = args[0]
 
     if startTime == None: # Define the off-peak start time
-        startTime = 0
+        startTime = 0 # TODO: Think about what these defaults should be
     if endTime   == None: # Define the off-peak end time
         endTime   = 0
     if outPut    == None:
@@ -85,6 +88,15 @@ def main(argv):
         
         time.sleep(time.localtime(time.time())[3])
 
+def makeInt(value):
+    try:
+        return int(value)
+    except:
+        print("An incorrect value was passed in. Aborting!")
+        print
+        usage()
+        sys.exit(2)
+
 def version():
     print("Bandwidth-Monitoring v0.02")
     print("Copyright (C) 2010 Henry Jenkins")
@@ -95,13 +107,12 @@ def version():
     print("Written by Henry Jenkins")
 
 
-def usage(argv):
-    print(argv[0] + " [options] <host>")
-    print("Monitor iptables data on the given host")
+def usage():
+    print("Usage: " + sys.argv[0] + " [options] <host>")
     print
     print("A <host> must either be an ip address or host name")
     print
-    print("Mandatory arguments to long options are mandatory for short options too.")
+    print("Mandatory arguments to long options are mandatory for short options too")
     print("  -h    --help                     display this help and exit")
     print("  -d    --debug                    print debug information")
     print("  -c:   --config=File              where File is a config file")
