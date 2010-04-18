@@ -70,11 +70,13 @@ def main(argv):
         myTable.updateTable(host)
         if _debug == 1 : print("DEBUG: updated table")
         # Check if we are currently on or off peak
-        peak = 'on'
+
         curTime = datetime.time(time.localtime().tm_hour,time.localtime().tm_min)
-        if curTime > datetime.time(startTime,0):
-            if curTime < datetime.time(endTime,0):
+        if  curTime > datetime.time(startTime,0) \
+        and curTime < datetime.time(endTime  ,0):
                 peak = 'off'
+        else:
+            peak = 'on'
 
         while myTable.hasLines():
             line = myTable.getLine()
@@ -82,7 +84,8 @@ def main(argv):
             if line["address"] not in users:
                 users[line["address"]] = user.user()
             myUser = users[line["address"]]
-            myUser.addData(data = line["bytes"], peak = peak, direction = line["upOrDown"])
+            myUser.addData(data = line["bytes"], pkts = line["pkts"],
+                           peak = peak, direction = line["upOrDown"])
 
         interface.outputIndex(outPut, users)
         
