@@ -1,7 +1,9 @@
 Bandwidth-Monitoring
 ====================
 
-This small python program monitors and logs iptables via ssh.
+This project has been put on hold until the end of the university year, when I will have more time.
+
+This small python program monitors and logs iptables via ssh. Used to record traffic use over wrt54gl router.
 
 
 How to use
@@ -13,16 +15,18 @@ Then run main.py to log the data passing through the act table.
 TODO
 ----
 
- - Record the number of packets                                      - v0.02
- - Read config file	                                                 - v0.03
- - Write data to database                                            - v0.04.0
- - Read data from database                                           - v0.04.1
- - Added some javascript to allow sorting of the data table          - v0.05
- - Change to better web system                                       - v0.06
- - Allow exploring of hosts via web interface                        - v0.07
+ - Record the number of packets                                      - v0.02.0
+ - Re implement using SNMP rather than SSH                           - v0.03
+ - Read config file                                                  - v0.04
+ - Write data to database                                            - v0.05.0
+ - Read data from database                                           - v0.05.1
+ - Added some javascript to allow sorting of the data table          - v0.06
+ - Change to better web system                                       - v0.07
+ - Allow exploring of hosts via web interface                        - v0.08
  - Test all code                                                     - v0.10
 
 Author
 ------
 
+Henry Jenkins
 henry@henryjenkins.name
